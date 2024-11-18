@@ -26,7 +26,7 @@ class User extends Model
   {
     $this->pdo->beginTransaction();
     try {
-      $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id=:id LIMIT 1");
+      $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id=:id AND deleted_at IS NULL LIMIT 1");
       $stmt->bindParam(":id", $id);
       $stmt->setFetchMode(PDO::FETCH_ASSOC);
       $stmt->execute();
@@ -44,7 +44,7 @@ class User extends Model
   {
     $this->pdo->beginTransaction();
     try {
-      $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email=:email LIMIT 1");
+      $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email=:email AND deleted_at IS NULL LIMIT 1");
       $stmt->bindParam(":email", $email);
       $stmt->setFetchMode(PDO::FETCH_ASSOC);
       $stmt->execute();
@@ -62,7 +62,7 @@ class User extends Model
   {
     $this->pdo->beginTransaction();
     try {
-      $stmt = $this->pdo->prepare("SELECT * FROM users");
+      $stmt = $this->pdo->prepare("SELECT * FROM users WHERE deleted_at IS NULL");
       $stmt->execute();
       $stmt->setFetchMode(PDO::FETCH_ASSOC);
       $users = $stmt->fetchAll();
@@ -99,7 +99,7 @@ class User extends Model
   {
     $this->pdo->beginTransaction();
     try {
-      $stmt = $this->pdo->prepare("UPDATE users SET username=:username, email=:email, password=:password SET id=:id");
+      $stmt = $this->pdo->prepare("UPDATE users SET username=:username, email=:email, password=:password WHERE id=:id AND deleted_at IS NULL");
       $stmt->bindParam(":username", $username);
       $stmt->bindParam(":password", $password);
       $stmt->bindParam(":email", $email);
@@ -116,7 +116,7 @@ class User extends Model
   {
     $this->pdo->beginTransaction();
     try {
-      $stmt = $this->pdo->prepare("DELETE FROM users WHERE id=:id");
+      $stmt = $this->pdo->prepare("UPDATE users SET deleted_at=CURRENT_TIMESTAMP() WHERE deleted_at IS NULL");
       $stmt->bindParam(":id", $id);
       $stmt->execute();
       $this->pdo->commit();
