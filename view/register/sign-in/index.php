@@ -39,7 +39,6 @@ $remember = safe_array_access("remember", $_GET) === "1";
       <input type="password" name="password" class="form-control" id="password" aria-describedby="passwordHelp">
       <?php
       if ($error === "password") {
-        global $password;
         echo "<div id=\"passwordHelp\" class=\"form-text\">$message</div>";
       }
       ?>
