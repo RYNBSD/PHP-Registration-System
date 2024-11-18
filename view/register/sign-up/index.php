@@ -27,7 +27,7 @@ $email = safe_array_access("email", $_GET) ?? "";
   <form method="post" action="./store.php">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input value="<?php echo $username; ?>" type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" required>
+      <input value="<?php echo htmlspecialchars($username); ?>" type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" required>
       <?php
       if ($error === "username") {
         echo "<div id=\"usernameHelp\" class=\"form-text\">$message</div>";
@@ -36,7 +36,7 @@ $email = safe_array_access("email", $_GET) ?? "";
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
-      <input value="<?php echo $email; ?>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+      <input value="<?php echo htmlspecialchars($email); ?>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" required>
       <?php
       if ($error === "email") {
         echo "<div id=\"emailHelp\" class=\"form-text\">$message</div>";

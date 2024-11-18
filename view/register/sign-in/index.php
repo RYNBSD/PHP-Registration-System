@@ -27,7 +27,7 @@ $remember = safe_array_access("remember", $_GET) === "1";
   <form method="post" action="./store.php">
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
-      <input value="<?php echo $email; ?>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+      <input value="<?php echo htmlspecialchars($email); ?>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
       <?php
       if ($error === "email") {
         echo "<div id=\"emailHelp\" class=\"form-text\">$message</div>";
