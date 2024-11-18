@@ -7,6 +7,9 @@ if (is_auth()) {
 }
 
 require_once __DIR__ . "/../../../error/form.php";
+
+$email = safe_array_access("email", $_GET) ?? "";
+$remember = safe_array_access("remember", $_GET) === "1";
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +27,7 @@ require_once __DIR__ . "/../../../error/form.php";
   <form method="post" action="./store.php">
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
-      <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+      <input value="<?php echo $email; ?>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
       <?php
       if ($error === "email") {
         echo "<div id=\"emailHelp\" class=\"form-text\">$message</div>";
@@ -42,7 +45,7 @@ require_once __DIR__ . "/../../../error/form.php";
       ?>
     </div>
     <div class="mb-3 form-check">
-      <input type="checkbox" name="remember" class="form-check-input" id="remember">
+      <input <?php echo $remember ? "checked" : "" ?> type="checkbox" name="remember" class="form-check-input" id="remember">
       <label class="form-check-label" for="remember">Remember me</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

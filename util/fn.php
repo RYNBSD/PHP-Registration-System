@@ -10,7 +10,7 @@ function redirect(string $path, array $params = [])
   $params_length = count($params);
 
   foreach ($params as $k => $v) {
-    $uri .= $k . "=" . urlencode($v);
+    $uri .= $k . "=" . urlencode((string)$v);
     if (--$params_length > 0) $uri .= "&";
   }
 
