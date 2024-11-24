@@ -1,11 +1,12 @@
 <?php
 
-$error = array_key_exists("error", $_GET) ?
-  htmlspecialchars((string)$_GET["error"])
-  : null;
-$message = array_key_exists("message", $_GET) ?
-  htmlspecialchars(urldecode((string)$_GET["message"]))
-  : null;
+require_once __DIR__ . "/../util/fn.php";
+
+$error =
+  htmlspecialchars((string)safe_array_access("error", $_GET));
+
+$message =
+  htmlspecialchars(urldecode((string)safe_array_access("message", $_GET)));
 
 function error_form_script()
 {
